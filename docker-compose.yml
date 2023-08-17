@@ -1,0 +1,32 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./VetAppBack
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080" # Mapeamento da porta do back-end
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/vet_app_db
+      SPRING_DATASOURCE_USERNAME: black_diamond
+      SPRING_DATASOURCE_PASSWORD: 1234#@4567&A
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./vet-app-front
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000" # Mapeamento da porta do front-end
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432" # Mapeamento da porta do PostgreSQL
+    environment:
+      POSTGRES_DB: vet_app_db
+      POSTGRES_USER: black_diamond
+      POSTGRES_PASSWORD: 1234#@4567&A

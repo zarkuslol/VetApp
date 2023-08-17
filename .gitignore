@@ -1,0 +1,5 @@
+/nginx
+/.vscode
+commands.txt
+/secrets
+.env
